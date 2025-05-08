@@ -1,12 +1,8 @@
-module "vpc" {
-  source = "../vpc"
-}
-
 resource "aws_instance" "ec2_instance" {
     #ubuntu ami 
     ami = "ami-0c55b159cbfafe1f0" # Replace with the latest Ubuntu AMI ID
     instance_type = "t2.medium" 
-    subnet_id = module.vpc.subnet_id
+    subnet_id = aws_subnet.pub_subnet.id
     security_groups = [aws_security_group.docker_on_ec2.name]
     key_name = "ExtraKey" # Replace with your key pair name
     #script to install docker
@@ -31,7 +27,7 @@ resource "aws_ecr_repository" "flask" {
 }
 
 resource "aws_security_group" "docker_on_ec2" {
-  vpc_id = module.vpc.vpc_id
+  vpc_id = aws_vpc.vpc.id
   description = "Allow Docker on EC2"
   name = "docker_on_ec2"
   
