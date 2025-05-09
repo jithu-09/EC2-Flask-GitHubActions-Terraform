@@ -1,6 +1,6 @@
 resource "aws_instance" "ec2_instance" {
     #ubuntu ami 
-    ami = "ami-0c55b159cbfafe1f0" # Replace with the latest Ubuntu AMI ID
+    ami = "ami-084568db4383264d4" # Replace with the latest Ubuntu AMI ID
     instance_type = "t2.medium" 
     subnet_id = aws_subnet.pub_subnet.id
     security_groups = [aws_security_group.docker_on_ec2.name]
