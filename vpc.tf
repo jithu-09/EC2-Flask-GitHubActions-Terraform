@@ -10,7 +10,7 @@ resource "aws_vpc" "vpc" {
 
 resource "aws_subnet" "pub_subnet" {
    vpc_id = aws_vpc.vpc.id
-   cidr_block = var.vpc_cidr[0]
+   cidr_block = var.subnet_cidrs[0]
    availability_zone = "${var.region}a"
    map_public_ip_on_launch = true
    tags = {
