@@ -43,6 +43,10 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
+            - name: Install AWS CLI
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y awscli
             - name: setup aws credentials
               uses: aws-actions/configure-aws-credentials@v1
               with:
@@ -70,8 +74,8 @@ jobs:
                 
                     # Cleans up existing containers and images, for all
                     echo "Cleaning up the VM"
-                    docker rm -f $(docker ps -aq)
-                    docker rmi -f $(docker images -q)
+                    docker rm -f $(docker ps -aq) || true
+                    docker rmi -f $(docker images -q) || true
 
                     # Logs in to ECR and runs the Docker container
                     echo "Running container"
