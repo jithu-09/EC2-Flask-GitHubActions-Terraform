@@ -37,6 +37,10 @@ jobs:
             - name: Push Docker image to ECR
               run: |
                 docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.GIT_SHA }}
+            - name: Verify Docker image exists in ECR
+              run: |
+                aws ecr describe-images --repository-name ${{ env.ECR_REPO }} --image-ids imageTag=${{ env.GIT_SHA }}
+                echo "Image is in ECR"
     
     deploy:
         runs-on: ubuntu-latest
