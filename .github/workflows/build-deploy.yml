@@ -65,12 +65,9 @@ jobs:
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 port: 22
                 script: |
-                    #   #!/bin/bash, below is only for specific container
-                    #   echo "Deploying Docker image to EC2 instance..."
-                    #   docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.GIT_SHA }}
-                    #   docker stop flask-app || true
-                    #   docker rm flask-app || true
-                    #   docker run -d --name flask-app -p 80:5000 ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPO }}:${{ env.GIT_SHA }}
+                    # Install AWS CLI
+                    sudo apt-get update
+                    sudo apt-get install -y awscli
                 
                     # Cleans up existing containers and images, for all
                     echo "Cleaning up the VM"
